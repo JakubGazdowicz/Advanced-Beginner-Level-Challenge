@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Project extends Model
 {
@@ -13,8 +14,18 @@ class Project extends Model
       'title',
       'description',
       'deadline',
-      'assigned_user',
-      'assigned_client',
+      'user_id',
+      'client_id',
       'status'
     ];
+
+    public function users(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
+
+    public function clients(): HasOne
+    {
+        return $this->hasOne(Client::class);
+    }
 }

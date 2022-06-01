@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="mb-4">
                                     <x-label for="description" :value="__('Description')" />
-                                    <x-input id="description" class="block mt-1 w-full" type="number" name="description" autofocus />
+                                    <x-input id="description" class="block mt-1 w-full" type="text" name="description" autofocus />
                                 </div>
                             </div>
                         </div>

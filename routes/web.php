@@ -17,17 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-Route::view('/users', 'users.index')->name('users.index');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', function () {return view('dashboard');})->name('dashboard');
+
     Route::resource('users', UserController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('projects', ProjectController::class);
