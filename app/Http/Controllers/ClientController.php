@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ClientController extends Controller
@@ -22,66 +24,69 @@ class ClientController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('clients.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreClientRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreClientRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreClientRequest $request)
+    public function store(StoreClientRequest $request): RedirectResponse
     {
-        //
-    }
+        Client::create([
+           'company' => $request->input('company'),
+           'vat' => $request->input('vat'),
+           'address' => $request->input('address')
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
+        return redirect()->route('clients.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
+     * @param Client $client
+     * @return View
      */
-    public function edit(Client $client)
+    public function edit(Client $client): View
     {
-        //
+        return view('clients.edit', compact('client'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateClientRequest  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
+     * @param UpdateClientRequest $request
+     * @param Client $client
+     * @return RedirectResponse
      */
-    public function update(UpdateClientRequest $request, Client $client)
+    public function update(UpdateClientRequest $request, Client $client): RedirectResponse
     {
-        //
+        $client->update([
+            'company' => $request->input('company'),
+            'vat' => $request->input('vat'),
+            'address' => $request->input('address')
+        ]);
+
+        return redirect()->route('clients.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
+     * @param Client $client
+     * @return RedirectResponse
      */
-    public function destroy(Client $client)
+    public function destroy(Client $client): RedirectResponse
     {
-        //
+        $client->delete();
+
+        return redirect()->route('clients.index');
     }
 }

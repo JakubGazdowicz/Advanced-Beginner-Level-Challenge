@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ProjectController extends Controller
@@ -22,66 +23,76 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('projects.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreProjectRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreProjectRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request): RedirectResponse
     {
-        //
+        Project::create([
+            'title' => $request->input('title'),
+            'description' => $request->input(''),
+            'deadline' => $request->input('deadline'),
+            'assigned_user' => $request->input('assigned_user'),
+            'assigned_client' => $request->input('assigned_client'),
+            'status' => $request->input('status')
+        ]);
+
+        return redirect()->route('projects.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Project $project)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return View
      */
-    public function edit(Project $project)
+    public function edit(Project $project): View
     {
-        //
+        return view('projects.edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProjectRequest  $request
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param UpdateProjectRequest $request
+     * @param Project $project
+     * @return RedirectResponse
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
     {
-        //
+        $project->update([
+            'title' => $request->input('title'),
+            'description' => $request->input(''),
+            'deadline' => $request->input('deadline'),
+            'assigned_user' => $request->input('assigned_user'),
+            'assigned_client' => $request->input(''),
+            'status' => $request->input('status')
+        ]);
+
+        return redirect()->route('projects.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @param Project $project
+     * @return RedirectResponse
      */
-    public function destroy(Project $project)
+    public function destroy(Project $project): RedirectResponse
     {
-        //
+        $project->delete();
+
+        return redirect()->route('projects.index');
     }
 }
