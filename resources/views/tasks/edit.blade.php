@@ -12,7 +12,7 @@
                     <x-validation-errors />
                     <x-success-message />
 
-                    <form method="POST" action="{{ route('tasks.update', $client) }}">
+                    <form method="POST" action="{{ route('tasks.update', $task) }}">
                         @method('PUT')
                         @csrf
                         <div class="grid grid-cols-2 gap-6">
