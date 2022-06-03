@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('company');
             $table->integer('vat');
             $table->string('address');
-            $table->foreignId('project_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

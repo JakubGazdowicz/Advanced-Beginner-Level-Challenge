@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('description');
             $table->date('deadline');
             $table->enum('status', Status::STATUSES)->default(Status::ACTIVE);
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });
     }

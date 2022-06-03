@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
+use App\Models\Client;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -17,7 +20,9 @@ class ProjectController extends Controller
      */
     public function index(): View
     {
-        return view('projects.index');
+        $projects = Project::paginate(10);
+
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -27,7 +32,12 @@ class ProjectController extends Controller
      */
     public function create(): View
     {
-        return view('projects.create');
+        $users = User::all();
+        $clients = Client::all();
+        $statuses = Status::STATUSES;
+
+
+        return view('projects.create', compact('users', 'clients', 'statuses'));
     }
 
     /**
@@ -38,12 +48,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request): RedirectResponse
     {
-        Project::create([
+       Project::create([
             'title' => $request->input('title'),
-            'description' => $request->input(''),
+            'description' => $request->input('description'),
             'deadline' => $request->input('deadline'),
-            'assigned_user' => $request->input('assigned_user'),
-            'assigned_client' => $request->input('assigned_client'),
+            'user_id' => $request->input('user_id'),
+            'client_id' => $request->input('client_id'),
             'status' => $request->input('status')
         ]);
 
@@ -73,10 +83,10 @@ class ProjectController extends Controller
     {
         $project->update([
             'title' => $request->input('title'),
-            'description' => $request->input(''),
+            'description' => $request->input('description'),
             'deadline' => $request->input('deadline'),
-            'assigned_user' => $request->input('assigned_user'),
-            'assigned_client' => $request->input(''),
+            'user_id' => $request->input('user_id'),
+            'client_id' => $request->input('client_id'),
             'status' => $request->input('status')
         ]);
 
