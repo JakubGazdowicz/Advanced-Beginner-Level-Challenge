@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -29,7 +30,9 @@ class TaskController extends Controller
      */
     public function create(): View
     {
-        return view('tasks.create');
+        $users = User::all();
+
+        return view('tasks.create', compact('users'));
     }
 
     /**
@@ -42,7 +45,8 @@ class TaskController extends Controller
     {
         Task::create([
            'title' => $request->input('title'),
-           'description' => $request->input('description')
+           'description' => $request->input('description'),
+           'user_id' => $request->input('user_id')
         ]);
 
         return redirect()->route('tasks.index');
@@ -56,7 +60,9 @@ class TaskController extends Controller
      */
     public function edit(Task $task): View
     {
-        return view('tasks.edit', compact('task'));
+        $users = User::all();
+
+        return view('tasks.edit', compact('task', 'users'));
     }
 
     /**
@@ -70,7 +76,8 @@ class TaskController extends Controller
     {
         $task->update([
             'title' => $request->input('title'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'user_id' => $request->input('user_id')
         ]);
 
         return redirect()->route('tasks.index');

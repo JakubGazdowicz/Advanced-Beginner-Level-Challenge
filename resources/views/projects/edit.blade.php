@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Clients') }}
+            {{ __('Projects') }}
         </h2>
     </x-slot>
 
@@ -12,28 +12,52 @@
                     <x-validation-errors />
                     <x-success-message />
 
-                    <form method="POST" action="{{ route('clients.update', $client) }}">
+                    <form method="POST" action="{{ route('projects.update', $project) }}">
                         @method('PUT')
                         @csrf
                         <div class="grid grid-cols-2 gap-6">
                             <div class="grid grid-rows-2 gap-6">
                                 <div class="mb-4">
-                                    <x-label for="company" :value="__('Company')" />
-                                    <x-input id="company" class="block mt-1 w-full" type="text" value="{{ $client->company }}" name="company" autofocus />
+                                    <x-label for="title" :value="__('Title')" />
+                                    <x-input id="title" class="block mt-1 w-full" type="text" name="title" autofocus />
                                 </div>
                                 <div class="mb-4">
-                                    <x-label for="vat" :value="__('VAT')" />
-                                    <x-input id="vat" class="block mt-1 w-full" type="number" value="{{ $client->vat }}" name="vat" autofocus />
+                                    <x-label for="description" :value="__('Description')" />
+                                    <x-textarea id="description" class="block mt-1 w-full" type="text" name="description" autofocus></x-textarea>
                                 </div>
                                 <div class="mb-4">
-                                    <x-label for="address" :value="__('Address')"></x-label>
-                                    <x-input id="address" class="block mt-1 w-full" type="text" value="{{ $client->address }}" name="address" autofocus />
+                                    <x-label for="deadline" :value="__('Deadline')"></x-label>
+                                    <x-input id="deadline" class="block mt-1 w-full" type="date" name="deadline" autofocus />
+                                </div>
+                                <div class="mb-4">
+                                    <x-label for="user_id" :value="__('Assign User')"></x-label>
+                                    <select name="user_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <x-label for="client_id" :value="__('Assign Client')"></x-label>
+                                    <select name="client_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        @foreach($clients as $client)
+                                            <option value="{{ $client->id }}">{{ $client->company }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <x-label for="status" :value="__('Status')"></x-label>
+                                    <select name="status" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status }}">{{ $status }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center justify-end mt-4">
                             <x-button class="ml-3">
-                                {{ __('Update Client') }}
+                                {{ __('Update Project') }}
                             </x-button>
                         </div>
                     </form>

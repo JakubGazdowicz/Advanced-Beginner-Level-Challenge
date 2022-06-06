@@ -24,6 +24,14 @@
                                     <x-label for="description" :value="__('Description')" />
                                     <x-input id="description" class="block mt-1 w-full" type="text" name="description" autofocus />
                                 </div>
+                                <div class="mb-4">
+                                    <x-label for="user_id" :value="__('Assign User')"></x-label>
+                                    <select name="user_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="flex items-center justify-end mt-4">

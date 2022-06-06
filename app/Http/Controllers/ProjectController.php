@@ -69,7 +69,11 @@ class ProjectController extends Controller
      */
     public function edit(Project $project): View
     {
-        return view('projects.edit', compact('project'));
+        $users = User::all();
+        $clients = Client::all();
+        $statuses = Status::STATUSES;
+
+        return view('projects.edit', compact('project', 'users', 'clients', 'statuses'));
     }
 
     /**
