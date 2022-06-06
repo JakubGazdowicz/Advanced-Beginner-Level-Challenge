@@ -14,3 +14,10 @@ class Status
       self::INACTIVE
     ];
 }
+
+//enum Status: string
+//{
+//    case Active = 'active';
+//    case Expired = 'expired';
+//    case Inactive = 'inactive';
+//}
