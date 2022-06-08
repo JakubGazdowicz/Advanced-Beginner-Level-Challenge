@@ -26,7 +26,11 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title' => 'string|required',
             'description' => 'string|required',
-            'user_id' => 'integer|required'
+            'user_id' => 'integer|required',
+            'client_id' => 'integer|required',
+            'project_id' => 'integer|required',
+            'deadline' => 'date|required',
+            'status' => 'string|required'
         ];
     }
 }

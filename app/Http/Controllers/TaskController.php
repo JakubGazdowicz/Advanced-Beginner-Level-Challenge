@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
+use App\Models\Project;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
@@ -24,6 +26,16 @@ class TaskController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return View
+     */
+    public function show(Task $task): View
+    {
+        return view('tasks.index', compact('task'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return View
@@ -31,8 +43,10 @@ class TaskController extends Controller
     public function create(): View
     {
         $users = User::all();
+        $clients = Client::all();
+        $projects = Project::all();
 
-        return view('tasks.create', compact('users'));
+        return view('tasks.create', compact('users', 'clients', 'projects'));
     }
 
     /**
@@ -43,11 +57,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request): RedirectResponse
     {
-        Task::create([
-           'title' => $request->input('title'),
-           'description' => $request->input('description'),
-           'user_id' => $request->input('user_id')
-        ]);
+        Task::create($request->validated());
 
         return redirect()->route('tasks.index');
     }
@@ -61,8 +71,10 @@ class TaskController extends Controller
     public function edit(Task $task): View
     {
         $users = User::all();
+        $clients = Client::all();
+        $projects = Project::all();
 
-        return view('tasks.edit', compact('task', 'users'));
+        return view('tasks.edit', compact('task', 'users', 'clients', 'projects'));
     }
 
     /**
@@ -74,11 +86,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
     {
-        $task->update([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'user_id' => $request->input('user_id')
-        ]);
+        $task->update($request->validated());
 
         return redirect()->route('tasks.index');
     }
