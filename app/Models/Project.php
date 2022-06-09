@@ -35,4 +35,14 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function scopeActiveProjects($query)
+    {
+        return $query->where('deadline', '>' ,now());
+    }
+
+    public function scopeProjectStatus($query, $status)
+    {
+        return $query->where('status', '=', $status);
+    }
 }
