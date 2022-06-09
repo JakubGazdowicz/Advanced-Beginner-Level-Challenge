@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Status;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\Task;
@@ -20,7 +21,7 @@ class TaskController extends Controller
      */
     public function index(): View
     {
-        $tasks = Task::paginate(10);
+        $tasks = Task::with(['user', 'client', 'project'])->paginate(10);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -32,7 +33,7 @@ class TaskController extends Controller
      */
     public function show(Task $task): View
     {
-        return view('tasks.index', compact('task'));
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -45,8 +46,9 @@ class TaskController extends Controller
         $users = User::all();
         $clients = Client::all();
         $projects = Project::all();
+        $statuses = Status::STATUSES;
 
-        return view('tasks.create', compact('users', 'clients', 'projects'));
+        return view('tasks.create', compact('users', 'clients', 'projects', 'statuses'));
     }
 
     /**
@@ -73,8 +75,9 @@ class TaskController extends Controller
         $users = User::all();
         $clients = Client::all();
         $projects = Project::all();
+        $statuses = Status::STATUSES;
 
-        return view('tasks.edit', compact('task', 'users', 'clients', 'projects'));
+        return view('tasks.edit', compact('task', 'users', 'clients', 'projects', 'statuses'));
     }
 
     /**
