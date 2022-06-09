@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,13 +18,16 @@ class ProjectFactory extends Factory
      */
     public function definition()
     {
+        $users = collect(User::all()->modelKeys());
+        $clients = collect(Client::all()->modelKeys());
+
         return [
             'title' => $this->faker->title,
             'description' => $this->faker->text(200),
-            'deadline' => $this->faker->date('m-d-Y'),
+            'deadline' => $this->faker->dateTimeBetween('+1 month', '+6 month'),
             'status' => 'active',
-            'user_id' => 1,
-            'client_id' => 1
+            'user_id' => $users->random(),
+            'client_id' => $clients->random()
         ];
     }
 }
