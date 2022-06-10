@@ -1,11 +1,6 @@
 <?php
 
-use App\Http\Controllers\{
-    ClientController,
-    ProjectController,
-    TaskController,
-    UserController
-};
+use App\Http\Controllers\{ClientController, MediaController, ProjectController, TaskController, UserController};
 
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +22,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('clients', ClientController::class);
     Route::resource('projects', ProjectController::class);
     Route::resource('tasks', TaskController::class);
+
+    Route::group(['prefix' => 'media', 'as' => 'media.'], function () {
+        Route::post('{model}/{id}/upload', [MediaController::class, 'store'])->name('upload');
+        Route::get('{mediaItem}/download', [MediaController::class, 'download'])->name('download');
+        Route::delete('{model}/{id}/{mediaItem}/delete', [MediaController::class, 'destroy'])->name('delete');
+    });
 });
 
 require __DIR__.'/auth.php';

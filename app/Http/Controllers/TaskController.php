@@ -29,6 +29,7 @@ class TaskController extends Controller
     /**
      * Display the resource.
      *
+     * @param Task $task
      * @return View
      */
     public function show(Task $task): View
@@ -59,7 +60,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request): RedirectResponse
     {
-        Task::create($request->validated());
+        $task =Task::create($request->validated());
 
         return redirect()->route('tasks.index');
     }

@@ -73,4 +73,63 @@
             </div>
         </div>
     </div>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <x-validation-errors />
+                    <x-success-message />
+
+                   <form action="{{ route('media.upload', ['Task', $task]) }}" method="POST" enctype="multipart/form-data">
+                       @csrf
+                       <div class="grid grid-cols-2 gap-6">
+                           <div class="grid grid-rows-2 gap-6">
+                               <div class="mb-4">
+                                   <x-label for="file" :value="__('Title')" />
+                                   <x-input id="file" class="block mt-1 w-full" type="file" name="file" autofocus />
+                               </div>
+                           </div>
+                       </div>
+                       <div class="flex items-center justify-end mt-4">
+                           <x-button class="ml-3">
+                               {{ __('Upload') }}
+                           </x-button>
+                       </div>
+                   </form>
+
+                    <table class="table mt-4">
+                        <thead>
+                        <tr>
+                            <th scope="col">File name</th>
+                            <th scope="col">Size</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($task->getMedia() as $media)
+                            <tr>
+                                <th scope="row">{{ $media->file_name }}</th>
+                                <td>{{ $media->human_readable_size }}</td>
+                                <td>
+                                    <a class="btn btn-xs btn-info" href="{{ route('media.download', $media) }}">
+                                        <x-button class="ml-3">
+                                            {{ __('Download') }}
+                                        </x-button>
+                                    </a>
+                                    <form action="{{ route('media.delete', ['Project', $task, $media]) }}" method="POST" onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-button class="ml-3">
+                                            {{ __('DELETE') }}
+                                        </x-button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
