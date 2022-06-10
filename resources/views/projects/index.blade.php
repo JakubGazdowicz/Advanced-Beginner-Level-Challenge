@@ -51,7 +51,9 @@
                                         @foreach($projects as $project)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <a class="text-indigo-600  hover:text-indigo-900 underline" href="{{ route('projects.show', $project) }}">
                                                     {{ $project->title }}
+                                                    </a>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {{ $project->description }}

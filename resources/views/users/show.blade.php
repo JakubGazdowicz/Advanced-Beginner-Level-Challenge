@@ -7,11 +7,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-button class="mb-4">
-                <a href="#">
-                    Add User
-                </a>
-            </x-button>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex flex-col">
@@ -27,33 +22,20 @@
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Email
                                             </th>
-                                            <th scope="col" class="relative px-6 py-3">
-                                                <span class="sr-only">Edit</span>
-                                            </th>
-                                            <th scope="col" class="relative px-6 py-3">
-                                                <span class="sr-only">Delete</span>
-                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach($users as $user)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <a class="text-indigo-600  hover:text-indigo-900 underline" href="{{ route('users.show', $user) }}">
-                                                        {{ $user->name }}
-                                                    </a>
+                                                    {{ $user->name }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {{ $user->email }}
                                                 </td>
                                             </tr>
-                                        @endforeach
                                         </tbody>
                                     </table>
 
-                                </div>
-                                <div class="mt-4">
-                                    {{ $users->links() }}
                                 </div>
                             </div>
                         </div>

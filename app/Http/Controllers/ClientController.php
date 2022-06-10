@@ -24,6 +24,17 @@ class ClientController extends Controller
     }
 
     /**
+     * Display the resource.
+     *
+     * @param Client $client
+     * @return View
+     */
+    public function show(Client $client): View
+    {
+        return view('clients.show', compact('client'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return View

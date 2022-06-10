@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
+ * @extends Factory
  */
 class ProjectFactory extends Factory
 {
@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
         $clients = collect(Client::all()->modelKeys());
 
         return [
-            'title' => $this->faker->title,
+            'title' => $this->faker->text(20),
             'description' => $this->faker->text(200),
             'deadline' => $this->faker->dateTimeBetween('+1 month', '+6 month'),
             'status' => 'active',

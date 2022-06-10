@@ -52,7 +52,7 @@
                                         @foreach($tasks as $task)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <a href="{{ route('tasks.show', $task) }}">
+                                                    <a class="text-indigo-600  hover:text-indigo-900 underline" href="{{ route('tasks.show', $task) }}">
                                                         {{ $task->title }}
                                                     </a>
                                                 </td>

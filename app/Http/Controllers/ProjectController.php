@@ -26,6 +26,17 @@ class ProjectController extends Controller
     }
 
     /**
+     * Display the resource.
+     *
+     * @param Project $project
+     * @return View
+     */
+    public function show(Project $project): View
+    {
+        return view('projects.show', compact('project'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return View

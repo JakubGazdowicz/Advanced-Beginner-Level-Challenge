@@ -27,7 +27,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display the resource.
      *
      * @return View
      */

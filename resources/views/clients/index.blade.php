@@ -42,7 +42,9 @@
                                         @foreach($clients as $client)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ $client->company }}
+                                                    <a class="text-indigo-600  hover:text-indigo-900 underline" href="{{ route('clients.show', $client) }}">
+                                                        {{ $client->company }}
+                                                    </a>
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {{ $client->vat }}
